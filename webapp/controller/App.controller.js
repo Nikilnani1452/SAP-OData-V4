@@ -8,14 +8,25 @@ sap.ui.define([
 
 	return Controller.extend("sap.ui.core.tutorial.odatav4.controller.App", {
 
+		/**
+		 *  Hook for initializing the controller
+		 */
 		onInit : function () {
 			var oJSONData = {
-				busy : false
-			};
-			var oModel = new JSONModel(oJSONData);
+					busy : false
+				},
+				oModel = new JSONModel(oJSONData);
+
 			this.getView().setModel(oModel, "appView");
 		},
 
+		/* =========================================================== */
+		/*           begin: event handlers                             */
+		/* =========================================================== */
+
+		/**
+		 * Refresh the data.
+		 */
 		onRefresh : function () {
 			var oBinding = this.byId("peopleList").getBinding("items");
 
@@ -27,9 +38,19 @@ sap.ui.define([
 			MessageToast.show(this._getText("refreshSuccessMessage"));
 		},
 
-		_getText : function (sTextId, aArgs) {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
+		/* =========================================================== */
+		/*           end: event handlers                               */
+		/* =========================================================== */
 
+		/**
+		 * Convenience method for retrieving a translatable text.
+		 * @param {string} sTextId - the ID of the text to be retrieved.
+		 * @param {Array} [aArgs] - optional array of texts for placeholders.
+		 * @returns {string} the text belonging to the given ID.
+		 */
+		_getText : function (sTextId, aArgs) {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle()
+				.getText(sTextId, aArgs);
 		}
 	});
 });
